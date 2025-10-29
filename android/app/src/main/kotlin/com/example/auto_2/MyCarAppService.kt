@@ -69,13 +69,8 @@ class MyCarAppService : CarAppService() {
     override fun onCreateSession(): Session {
         return object : Session() {
             override fun onCreateScreen(intent: Intent): Screen {
-                return object : Screen(carContext) {
-                    override fun onGetTemplate(): Template {
-                        return MessageTemplate.Builder("Auto Demo - Navegación")
-                            .setTitle("Demo navegación")
-                            .build()
-                    }
-                }
+                // Return a dedicated LoginScreen implemented in a separate file.
+                return LoginScreen(carContext)
             }
         }
     }

@@ -30,5 +30,17 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        
+        <!-- Android for Cars service declaration -->
+        <service
+            android:name=".MyCarAppService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+            </intent-filter>
+            <meta-data
+                android:name="androidx.car.app.car_app"
+                android:resource="@xml/automotive_app_desc" />
+        </service>
     </application>
 </manifest>

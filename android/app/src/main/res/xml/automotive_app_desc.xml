@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<automotiveApp xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Request the navigation category so the host can show navigation-capable apps.
+         Also include the generic 'app' capability so hosts that look for a
+         broader capability will discover this test app. Remove 'app' before
+         production if you only intend to be a nav app. -->
+    <uses name="navigation" />
+    <uses name="app" />
+</automotiveApp>

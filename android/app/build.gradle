@@ -68,5 +68,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.car.app:app-automotive:1.2.0"
+    // Use the projection (phone) Car App library for Android Auto (DHU/projection)
+    // instead of the Automotive OS library. The 'app' artifact is the correct
+    // dependency for apps that will be discovered via the Desktop Head Unit.
+    implementation "androidx.car.app:app:1.2.0"
 }
