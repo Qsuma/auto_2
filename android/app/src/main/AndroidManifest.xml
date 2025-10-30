@@ -3,11 +3,48 @@
     package="com.example.auto_2">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.car.permission.BIND_CAR_APP_SERVICE" />
-    
+      <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES"/>
+  <uses-permission android:name="androidx.car.app.ACCESS_SURFACE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+  <uses-feature
+      android:name="android.hardware.type.automotive"
+      android:required="true" />
+  <uses-feature
+      android:name="android.software.car.templates_host"
+      android:required="true" />
+  <uses-feature
+      android:name="android.hardware.wifi"
+      android:required="false" />
+  <uses-feature
+      android:name="android.hardware.screen.portrait"
+      android:required="false" />
+  <uses-feature
+      android:name="android.hardware.screen.landscape"
+      android:required="false" />
    <application
         android:label="auto_2"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+    <meta-data
+            android:name="androidx.car.app.minCarApiLevel"
+            android:value="1"/>
+    <meta-data android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+    <meta-data
+                android:name="androidx.car.app.car_app"
+                android:resource="@xml/automotive_app_desc" />
+
+    <service
+            android:name=".MyCarAppService"
+            android:exported="true"
+            android:permission="android.car.permission.BIND_CAR_APP_SERVICE"
+        >
+            <intent-filter>
+               <action android:name="androidx.car.app.CarAppService"/>
+               <category android:name="androidx.car.app.category.NAVIGATION"/>
+            </intent-filter>
+            
+        </service>    
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -35,20 +72,9 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <!-- Required by some projection hosts (DHU/Google projection) to discover projected Car apps -->
-        <meta-data android:name="com.google.android.gms.car.application"
-            android:resource="@xml/automotive_app_desc" />
-        
+       
         <!-- Android for Cars service declaration -->
-        <service
-            android:name=".MyCarAppService"
-            android:exported="true"
-            android:permission="android.car.permission.BIND_CAR_APP_SERVICE">
-            <intent-filter>
-                <action android:name="androidx.car.app.CarAppService" />
-            </intent-filter>
-            <meta-data
-                android:name="androidx.car.app.car_app"
-                android:resource="@xml/automotive_app_desc" />
-        </service>
+        
+        
     </application>
 </manifest>
