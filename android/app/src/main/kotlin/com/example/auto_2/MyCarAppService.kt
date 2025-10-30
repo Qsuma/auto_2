@@ -16,8 +16,10 @@ import androidx.car.app.validation.HostValidator
  */
 class MyCarAppService : CarAppService() {
     override fun createHostValidator(): HostValidator {
-    // For development/sample apps allow all hosts. For production, implement
-    // a stricter validator according to Android for Cars guidance.
+        // Log entry for debugging discovery/binding in DHU
+        android.util.Log.d("MyCarAppService", "createHostValidator() called")
+        // For development/sample apps allow all hosts. For production, implement
+        // a stricter validator according to Android for Cars guidance.
         // Try a few strategies to obtain a permissive HostValidator without
         // depending on a single constant name across library versions:
         // 1) Look for common static fields (ALLOW_ALL_HOSTS, ALLOW_ALL).
@@ -62,13 +64,16 @@ class MyCarAppService : CarAppService() {
             HostValidator::class.java.getDeclaredField("ALLOW_ALL_HOSTS").apply { isAccessible = true }
                 .get(null) as HostValidator
         } catch (e: Throwable) {
+            android.util.Log.w("MyCarAppService", "Unable to obtain permissive HostValidator: ${e.message}")
             throw RuntimeException("Unable to obtain permissive HostValidator; check Android for Cars dependency version.", e)
         }
     }
 
     override fun onCreateSession(): Session {
+        android.util.Log.d("MyCarAppService", "onCreateSession() called")
         return object : Session() {
             override fun onCreateScreen(intent: Intent): Screen {
+                android.util.Log.d("MyCarAppService", "onCreateScreen() creating LoginScreen")
                 // Return a dedicated LoginScreen implemented in a separate file.
                 return LoginScreen(carContext)
             }

@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.auto_2">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.car.permission.BIND_CAR_APP_SERVICE" />
+    
    <application
         android:label="auto_2"
         android:name="${applicationName}"
@@ -30,11 +34,15 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Required by some projection hosts (DHU/Google projection) to discover projected Car apps -->
+        <meta-data android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
         
         <!-- Android for Cars service declaration -->
         <service
             android:name=".MyCarAppService"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.car.permission.BIND_CAR_APP_SERVICE">
             <intent-filter>
                 <action android:name="androidx.car.app.CarAppService" />
             </intent-filter>
